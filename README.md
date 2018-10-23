@@ -1,2 +1,2 @@
-Projeto de Autorama em OpenGL
+Projeto de Autorama em OpenGL - Modulo 2
 # ProjetoFinalOpenGL
