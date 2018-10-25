@@ -74,7 +74,7 @@ public class Autorama
         gl.glLoadIdentity();
         //glu.gluLookAt(4, 4, 4, 4, 4, -4, 2, -2, -100); implementar camera
         gl.glTranslated(0, 0, -4);
-        //gl.glRotated(g, 0, g, 0);
+        gl.glRotated(65, 1, 1, 0);
         
         //desenhaCaixaAutorama(gl);
         gl.glTranslated(-5+g, 0, 0);
@@ -105,7 +105,7 @@ public class Autorama
         GL2 gl = gLAutoDrawable.getGL().getGL2();
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(100, 1, 1, 60);
+        glu.gluPerspective(125, 1, 1, 80);
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
         gl.glTranslated(0, 0, -5);
