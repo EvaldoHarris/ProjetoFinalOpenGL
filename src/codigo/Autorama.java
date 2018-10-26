@@ -4,8 +4,6 @@ package codigo;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import com.jogamp.opengl.util.Animator;
 import com.jogamp.opengl.util.gl2.GLUT;
 import java.awt.event.WindowAdapter;
@@ -55,8 +53,7 @@ public class Autorama
 
     }
 
-    public void init(GLAutoDrawable glAuto) 
-    {
+    public void init(GLAutoDrawable glAuto) {
         Animator a = new Animator(glAuto);
         a.start();
         GL gl = glAuto.getGL();
@@ -68,26 +65,28 @@ public class Autorama
 
         GL2 gl = glAuto.getGL().getGL2();
 
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT 
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT
                 | GL.GL_DEPTH_BUFFER_BIT);
 
         gl.glLoadIdentity();
         //glu.gluLookAt(4, 4, 4, 4, 4, -4, 2, -2, -100); implementar camera
         gl.glTranslated(0, 0, -4);
-        gl.glRotated(65, 1, 1, 0);
-        
-        //desenhaCaixaAutorama(gl);
-        gl.glTranslated(-5+g, 0, 0);
-        
-        if(g < 5)
-            g+=0.01;
-        else
+        gl.glRotated(85, 1, 0, 0); // Rotação Camera
+        gl.glRotated(90, 0, 1, 0); // Rotação Camera
+
+        desenhaCaixaAutorama(gl);
+        gl.glTranslated(-5 + g, 0, 0);
+
+        if (g < 5) {
+            g += 0.01;
+        } else {
             g = 0;
-        
+        }
+
         desenhaCarro(gl, glut, 0, 0, 1);
-        
+
         gl.glTranslated(0, 0, 1);
-        
+
         desenhaCarro(gl, glut, 1, 0, 0);
     }
 
@@ -99,13 +98,12 @@ public class Autorama
 //        }
 //        gl.glPopMatrix();
 //    }
-
     public void reshape(GLAutoDrawable gLAutoDrawable, int x, int y, int w, int h) {
 
         GL2 gl = gLAutoDrawable.getGL().getGL2();
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(125, 1, 1, 80);
+        glu.gluPerspective(140, 1, 1, 90);
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
         gl.glTranslated(0, 0, -5);
@@ -118,76 +116,119 @@ public class Autorama
     public void dispose(GLAutoDrawable glad) {
 
     }
-    
-    public void desenhaCaixaAutorama(GL2 gl)
-    {
-        gl.glBegin(GL2.GL_QUADS);
-            gl.glColor3f(1,0,0);
-            gl.glVertex3d(-1, -1, -1);
-            gl.glVertex3d(1, -1, -1);
-            gl.glVertex3d(1, -1, 1);
-            gl.glVertex3d(-1, -1, 1);
-        gl.glEnd();
-        
-        gl.glBegin(GL2.GL_QUADS);
-            gl.glColor3f(0, 1, 0);
-            gl.glVertex3d(-1, 1, -1);
-            gl.glVertex3d( 1, 1, -1);
-            gl.glVertex3d(1, -1, -1);
-            gl.glVertex3d(-1, -1, -1);
-        gl.glEnd();
-        
-        gl.glBegin(GL2.GL_QUADS);
-            gl.glColor3f(0, 0, 1);
-            gl.glVertex3d(-1, 1, 1);
-            gl.glVertex3d(1, 1, 1);
-            gl.glVertex3d(1, -1, 1);
-            gl.glVertex3d(-1, -1, 1);
-        gl.glEnd();
-        
-        gl.glBegin(GL2.GL_QUADS);
-            gl.glColor3f(1, 0, 1);
-            gl.glVertex3d(1, 1, -1);
-            gl.glVertex3d(1, 1, 1);
-            gl.glVertex3d(1, -1, 1);
-            gl.glVertex3d(1, -1, -1);
-        gl.glEnd();
-        
-        gl.glBegin(GL2.GL_QUADS);
-            gl.glColor3f(0, 1, 1);
-            gl.glVertex3d(-1, 1, -1);
-            gl.glVertex3d(-1, 1, 1);
-            gl.glVertex3d(-1, -1, 1);
-            gl.glVertex3d(-1, -1, -1);
-        gl.glEnd();
-    }
-    
-    public void desenhaCarro(GL2 gl, GLUT glut, double r, double g, double b)
-    {
+
+    public void desenhaCaixaAutorama(GL2 gl) {
+
         gl.glPushMatrix();
-            gl.glTranslated(2, 0, 0);
-            gl.glColor3d(r,g,b);
-            glut.glutSolidCube(0.5f);
+        {
+            gl.glBegin(GL2.GL_QUADS);
+            {
+                //PAREDE DIREITA
+                gl.glColor3f(1, 0, 0);
+                gl.glVertex3d(-10, -1, 10);//x,y,z
+                gl.glVertex3d(-10, 1, 10);
+                gl.glVertex3d(10, 1, 10);
+                gl.glVertex3d(10, -1, 10);
 
-            gl.glTranslated(0.5,0,0);
-            gl.glColor3d(r,g,b);
-            glut.glutSolidCube(0.5f);
+                //PAREDE ESQUERDA
+                gl.glColor3f(0, 1, 0);
+                gl.glVertex3d(-10, -1, -10);
+                gl.glVertex3d(-10, 1, -10);
+                gl.glVertex3d(10, 1, -10);
+                gl.glVertex3d(10, -1, -10);
 
-            gl.glTranslated(0.1,-0.275,-0.17);
-            gl.glColor3d(0,0,0);
-            glut.glutSolidSphere(0.075, 20, 20);
+                //PAREDE ATRAS
+                gl.glColor3f(0, 0, 1);
+                gl.glVertex3d(-10, -1, -10);
+                gl.glVertex3d(-10, -1, 10);
+                gl.glVertex3d(-10, 1, 10);
+                gl.glVertex3d(-10, 1, -10);
 
-            gl.glTranslated(0,0,0.34);
-            gl.glColor3d(0,0,0);
-            glut.glutSolidSphere(0.075, 20, 20);
+                //PAREDE FRENTE
+                gl.glColor3f(1, 0, 1);
+                gl.glVertex3d(10, -1, -10);
+                gl.glVertex3d(10, -1, 10);
+                gl.glVertex3d(10, 1, 10);
+                gl.glVertex3d(10, 1, -10);
 
-            gl.glTranslated(-0.625,0,0);
-            gl.glColor3d(0,0,0);
-            glut.glutSolidSphere(0.075, 20, 20);
+                //CHÃO
+                gl.glColor3f(1, 1, 1);
+                gl.glVertex3d(-10, -1, -10);
+                gl.glVertex3d(10, -1, -10);
+                gl.glVertex3d(10, -1, 10);
+                gl.glVertex3d(-10, -1, 10);
 
-            gl.glTranslated(0,0,-0.34);
-            gl.glColor3d(0,0,0);
-            glut.glutSolidSphere(0.075, 20, 20);
+            }
+            gl.glEnd();
+        }
+        gl.glPopMatrix();
+
+        /*gl.glBegin(GL2.GL_QUADS);
+         gl.glColor3f(1,0,0);
+         gl.glVertex3d(-1, -1, -1);
+         gl.glVertex3d(1, -1, -1);
+         gl.glVertex3d(1, -1, 1);
+         gl.glVertex3d(-1, -1, 1);
+         gl.glEnd();
+            
+         gl.glBegin(GL2.GL_QUADS);
+         gl.glColor3f(0, 1, 0);
+         gl.glVertex3d(-1, 1, -1);
+         gl.glVertex3d( 1, 1, -1);
+         gl.glVertex3d(1, -1, -1);
+         gl.glVertex3d(-1, -1, -1);
+         gl.glEnd();
+            
+         gl.glBegin(GL2.GL_QUADS);
+         gl.glColor3f(0, 0, 1);
+         gl.glVertex3d(-1, 1, 1);
+         gl.glVertex3d(1, 1, 1);
+         gl.glVertex3d(1, -1, 1);
+         gl.glVertex3d(-1, -1, 1);
+         gl.glEnd();
+            
+         gl.glBegin(GL2.GL_QUADS);
+         gl.glColor3f(1, 0, 1);
+         gl.glVertex3d(1, 1, -1);
+         gl.glVertex3d(1, 1, 1);
+         gl.glVertex3d(1, -1, 1);
+         gl.glVertex3d(1, -1, -1);
+         gl.glEnd();
+            
+         gl.glBegin(GL2.GL_QUADS);
+         gl.glColor3f(0, 1, 1);
+         gl.glVertex3d(-1, 1, -1);
+         gl.glVertex3d(-1, 1, 1);
+         gl.glVertex3d(-1, -1, 1);
+         gl.glVertex3d(-1, -1, -1);
+         gl.glEnd();*/
+    }
+
+    public void desenhaCarro(GL2 gl, GLUT glut, double r, double g, double b) {
+        gl.glPushMatrix();
+        gl.glTranslated(2, 0, 0);
+        gl.glColor3d(r, g, b);
+        glut.glutSolidCube(0.5f);
+
+        gl.glTranslated(0.5, 0, 0);
+        gl.glColor3d(r, g, b);
+        glut.glutSolidCube(0.5f);
+
+        gl.glTranslated(0.1, -0.275, -0.17);
+        gl.glColor3d(0, 0, 0);
+        glut.glutSolidSphere(0.075, 20, 20);
+
+        gl.glTranslated(0, 0, 0.34);
+        gl.glColor3d(0, 0, 0);
+        glut.glutSolidSphere(0.075, 20, 20);
+
+        gl.glTranslated(-0.625, 0, 0);
+        gl.glColor3d(0, 0, 0);
+        glut.glutSolidSphere(0.075, 20, 20);
+
+        gl.glTranslated(0, 0, -0.34);
+        gl.glColor3d(0, 0, 0);
+        glut.glutSolidSphere(0.075, 20, 20);
         gl.glPopMatrix();
     }
 
@@ -201,7 +242,6 @@ public class Autorama
 //        gl.glEnd();
 //
 //    }
-
 //    private void desenhaLinha(GL2 gl, int start) {
 //        gl.glPushMatrix();
 //        for (int i = 0; i < 8; i++) {
@@ -214,5 +254,4 @@ public class Autorama
 //        }
 //        gl.glPopMatrix();
 //    }
-
 }
