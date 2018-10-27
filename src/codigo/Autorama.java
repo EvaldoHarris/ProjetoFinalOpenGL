@@ -69,16 +69,18 @@ public class Autorama
                 | GL.GL_DEPTH_BUFFER_BIT);
 
         gl.glLoadIdentity();
-        //glu.gluLookAt(4, 4, 4, 4, 4, -4, 2, -2, -100); implementar camera
         gl.glTranslated(0, 0, -4);
         gl.glRotated(85, 1, 0, 0); // Rotação Camera
         gl.glRotated(90, 0, 1, 0); // Rotação Camera
-
+        
         desenhaCaixaAutorama(gl);
-        gl.glTranslated(-5 + g, 0, 0);
+        
+        desenhaPista(gl);
+        
+        gl.glTranslated(-3 + g, 0, 0);
 
         if (g < 5) {
-            g += 0.01;
+            g += 0.005;
         } else {
             g = 0;
         }
@@ -152,7 +154,7 @@ public class Autorama
                 gl.glVertex3d(10, 1, -10);
 
                 //CHÃO
-                gl.glColor3f(1, 1, 1);
+                gl.glColor3f(1, 1, 0);
                 gl.glVertex3d(-10, -1, -10);
                 gl.glVertex3d(10, -1, -10);
                 gl.glVertex3d(10, -1, 10);
@@ -206,7 +208,7 @@ public class Autorama
 
     public void desenhaCarro(GL2 gl, GLUT glut, double r, double g, double b) {
         gl.glPushMatrix();
-        gl.glTranslated(2, 0, 0);
+        gl.glTranslated(-2, 0, -7);
         gl.glColor3d(r, g, b);
         glut.glutSolidCube(0.5f);
 
@@ -214,7 +216,7 @@ public class Autorama
         gl.glColor3d(r, g, b);
         glut.glutSolidCube(0.5f);
 
-        gl.glTranslated(0.1, -0.275, -0.17);
+        gl.glTranslated(0.1, -0.273, -0.17);
         gl.glColor3d(0, 0, 0);
         glut.glutSolidSphere(0.075, 20, 20);
 
@@ -229,6 +231,244 @@ public class Autorama
         gl.glTranslated(0, 0, -0.34);
         gl.glColor3d(0, 0, 0);
         glut.glutSolidSphere(0.075, 20, 20);
+        gl.glPopMatrix();
+    }
+    
+    public void desenhaPista(GL2 gl)
+    {
+        //Retas
+        gl.glPushMatrix();
+            gl.glPushMatrix();
+                gl.glTranslated(-7.5, 0, -7.5);
+
+                gl.glBegin(GL2.GL_QUADS);
+                    gl.glColor3f(0, 0, 0);
+                    gl.glVertex3d(0.5, -0.999, -1.5);
+                    gl.glVertex3d(12.5, -0.999, -1.5);
+                    gl.glVertex3d(12.5, -0.999, 1.5);
+                    gl.glVertex3d(0.5, -0.999, 1.5);
+                gl.glEnd();
+
+                gl.glTranslated(0, 0, 15);
+
+                gl.glBegin(GL2.GL_QUADS);
+                    gl.glColor3f(0, 0, 0);
+                    gl.glVertex3d(0.5, -0.999, -1.5);
+                    gl.glVertex3d(12.5, -0.999, -1.5);
+                    gl.glVertex3d(12.5, -0.999, 1.5);
+                    gl.glVertex3d(0.5, -0.999, 1.5);
+                gl.glEnd();
+
+                gl.glTranslated(13, 0, -7.5);
+
+                gl.glBegin(GL2.GL_QUADS);
+                    gl.glColor3f(0, 0, 0);
+                    gl.glVertex3d(0.5, -0.999, -5.5);
+                    gl.glVertex3d(3.25, -0.999, -5.5);
+                    gl.glVertex3d(3.25, -0.999, 5.5);
+                    gl.glVertex3d(0.5, -0.999, 5.5);
+                gl.glEnd();
+
+                gl.glTranslated(-15.5, 0, 0);
+
+                gl.glBegin(GL2.GL_QUADS);
+                    gl.glColor3f(0, 0, 0);
+                    gl.glVertex3d(0.5, -0.999, -5.5);
+                    gl.glVertex3d(2.5, -0.999, -5.5);
+                    gl.glVertex3d(2.5, -0.999, 5.5);
+                    gl.glVertex3d(0.5, -0.999, 5.5);
+                gl.glEnd();
+
+            gl.glPopMatrix();
+
+            desenhaCurva(gl);
+        gl.glPopMatrix();
+        
+        
+    }
+    
+    public void desenhaCurva(GL2 gl)
+    {
+        gl.glPushMatrix();
+            gl.glTranslated(4.5, 0, -7.5); 
+            gl.glRotated(-205, 0, 1, 0);
+            gl.glTranslated(-3.7, 0, 0.35);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(-176, 0, 1, 0);
+            gl.glTranslated(-4.9, 0, -0.075);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(353, 0, 1, 0);
+            gl.glTranslated(1.8, 0, -0.4);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(-60, 0, 1, 0);
+            gl.glTranslated(0.2, 0, -2);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(-0.1, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+        gl.glPopMatrix();
+        
+        gl.glTranslated(3.8,0,-2);
+        gl.glRotated(235, 0, 1, 0);
+        
+        gl.glPushMatrix();
+            gl.glTranslated(4.5, 0, -7.5); 
+            gl.glRotated(-205, 0, 1, 0);
+            gl.glTranslated(-3.7, 0, 0.35);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(-190, 0, 1, 0);
+            gl.glTranslated(-3.17, 0, 0.4);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(-347, 0, 1, 0);
+            gl.glTranslated(-1.75, 0, 0.35);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(-320, 0, 1, 0);
+            gl.glTranslated(-1.35, 0, 1.15);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd(); 
+        gl.glPopMatrix();
+        
+        gl.glTranslated(3.8,0,-2);
+        gl.glRotated(235, 0, 1, 0);
+        
+        gl.glPushMatrix();
+            gl.glTranslated(4.5, 0, -7.5); 
+            gl.glRotated(-255, 0, 1, 0);
+            gl.glTranslated(-3.7, 0, 7.75);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(-189, 0, 1, 0);
+            gl.glTranslated(-3.2, 0, 0.3);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3.5, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(145, 0, 1, 0);
+            gl.glTranslated(-2.1, 0, 0.5);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(-0.1, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(0, 0, 1, 0);
+            gl.glTranslated(-2, 0, -4);
+            
+            gl.glBegin(GL2.GL_QUADS);
+                gl.glColor3f(1, 0, 0);
+                gl.glVertex3d(-0.1, -0.998, -1.5);
+                gl.glVertex3d(1.25, -0.998, -1.5);
+                gl.glVertex3d(1.25, -0.998, 1.5);
+            gl.glEnd();
+        gl.glPopMatrix();
+        
+        gl.glTranslated(3.8,0,-2);
+        gl.glRotated(235, 0, 1, 0);
+        
+        gl.glPushMatrix();
+            gl.glTranslated(4.5, 0, -7.5); 
+            gl.glRotated(330, 0, 1, 0);
+            gl.glTranslated(-3, 0, 19.85);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(205, 0, 1, 0);
+            gl.glTranslated(-5, 0, -1.15);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(3, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(-30, 0, 1, 0);
+            gl.glTranslated(0.6, 0, -1.25);
+            
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(1, -0.998, -1.5);
+                gl.glVertex3d(2.15, -0.998, -1.5);
+                gl.glVertex3d(2, -0.998, 1.5);
+            gl.glEnd();
+            
+            gl.glRotated(51, 0, 1, 0);
+            gl.glTranslated(0.2,0,1.9);
+            
+            gl.glBegin(GL2.GL_QUADS);
+                gl.glColor3f(0, 0, 0);
+                gl.glVertex3d(0.4, -0.998, -1.15);
+                gl.glVertex3d(2.5, -0.998, -1.15);
+                gl.glVertex3d(2.5, -0.998, 1.15);
+                gl.glVertex3d(0.4, -0.998, 1.15);
+            gl.glEnd();
         gl.glPopMatrix();
     }
 
