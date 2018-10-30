@@ -29,7 +29,8 @@ public class Autorama
     public static void main(String args[]) {
         new Autorama();
     }
-    private double g;
+    private double gX, gY, gZ;
+    private double gR = 0;
 
     public Autorama() {
         GLJPanel canvas = new GLJPanel();
@@ -77,13 +78,44 @@ public class Autorama
         
         desenhaPista(gl);
         
-        gl.glTranslated(-3 + g, 0, 0);
-
-        if (g < 5) {
-            g += 0.005;
+        
+        gl.glTranslated(-3 + gX, gY, gZ);
+        gl.glRotated(gR, 0, 1, 0);
+        
+        if (gX < 8) {
+            gX += 0.02;
+            gY = 0;
+            gZ = 0;
+            
         } else {
-            g = 0;
+            gX = 8;
+            if(gZ <1)
+            {
+                gZ += 0.005;
+                gR -= 0.1;
+            }
+            else if(gZ >= 1 && gZ < 2)
+            {
+                gZ += 0.1;
+                gR -= 0.2;   
+            }
+            
+            if(gR > -90 && gZ >= 2)
+            {
+                gl.glTranslated(-7, 0, -3);
+                gl.glRotated(-90-gR,0,1,0);
+                
+                if(gZ < 11)
+                    gZ += 0.02;
+                else
+                {
+                    gR += 0.01;
+            
+                }
+            }
         }
+        
+        System.out.println(gR);
 
         desenhaCarro(gl, glut, 0, 0, 1);
 
