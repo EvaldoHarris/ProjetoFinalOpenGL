@@ -29,8 +29,11 @@ public class Autorama
     public static void main(String args[]) {
         new Autorama();
     }
+    
     private double gX, gY, gZ;
     private double gR = 0;
+    private boolean reta1=true, reta2=false, reta3=false, reta4=false;
+    private int passou = 0;
 
     public Autorama() {
         GLJPanel canvas = new GLJPanel();
@@ -81,42 +84,131 @@ public class Autorama
         
         gl.glTranslated(-3 + gX, gY, gZ);
         gl.glRotated(gR, 0, 1, 0);
-        
-        if (gX < 8) {
-            gX += 0.02;
-            gY = 0;
-            gZ = 0;
-            
-        } else {
-            gX = 8;
-            if(gZ <1)
-            {
-                gZ += 0.005;
-                gR -= 0.1;
-            }
-            else if(gZ >= 1 && gZ < 2)
-            {
-                gZ += 0.1;
-                gR -= 0.2;   
-            }
-            
-            if(gR > -90 && gZ >= 2)
-            {
-                gl.glTranslated(-7, 0, -3);
-                gl.glRotated(-90-gR,0,1,0);
-                
-                if(gZ < 11)
-                    gZ += 0.02;
-                else
+
+        if(reta1 == true)
+        {
+            if (gX < 8) {
+                gX += 0.02;
+                gY = 0;
+                gZ = 0;  
+            } 
+            else {
+                gX = 8;
+                if(gZ <1)
                 {
-                    gR += 0.01;
-            
+                    gZ += 0.005;
+                    gR -= 0.1;
+                }
+                else if(gZ >= 1 && gZ < 2)
+                {
+                    gZ += 0.1;
+                    gR -= 0.2;   
+                }
+                if(gR > -90 && gZ >= 2)
+                {
+                    reta1 = false;
+                    reta2 = true;
                 }
             }
         }
         
-        System.out.println(gR);
-
+        if(reta2 == true)
+        {
+            if(gR > -90 && gZ >= 2 && passou == 0)
+            {
+                gl.glTranslated(-7, 0, -3);
+                gl.glRotated(-90-gR,0,1,0);
+                gl.glRotated(0,0,1,0);
+            }
+            
+            if(gZ < 11.3 && passou == 0)
+                gZ += 0.02;
+            else if(gZ >= 11.3 && gZ <= 11.32 && passou == 0)
+            {
+                gR -= 90;
+                gX -= 6;
+                gZ -= 7.5;
+                passou = 1;
+            }
+            else if(gZ >= 2.5 && gZ <= 3.9)
+            {
+                gZ -= 0.0008;
+                gR -= 0.02;
+            }
+            
+            if(gR > -270 && gZ <= 2.5 && passou == 1)
+            {
+                reta2 = false;
+                reta3 = true;
+                passou = 0;
+            }
+        }
+        
+        if(reta3 == true)
+        {
+           if(gR > -270 && gZ <= 2.5 && passou == 0)
+           {
+               gl.glTranslated(-4, 0, 0);
+               gl.glRotated(-180-gR, 0, 1, 0);
+           }
+           
+           if(gX > -7 && passou == 0)
+               gX -= 0.02;
+           else if(gX <= -7 && gX >= -7.02 && passou == 0)
+           {
+               gR -= 90;
+               gX += 8;
+               passou = 1;
+           }
+           else if(gX >= 0.9 && gX <= 1.8 && passou == 1)
+           {
+               gX += 0.0005;
+               gR -= 0.02;
+           }
+           
+           if(gR > -270 && gX >= 1.8 && passou == 1)
+           {
+               reta3 = false;
+               reta4 = true;
+               passou = 0;
+           }
+        }
+        
+        if(reta4 == true)
+        {
+            if(gR > -270 && gX >= 1.8 && passou == 0)
+            {
+               gl.glTranslated(-0.25, 0, 0.4);
+               gl.glRotated(90-gR, 0, 1, 0);
+            }
+            
+            if(gZ > -7 && passou == 0)
+                gZ -= 0.02;
+            else if(gZ <= -7 && gZ >= -7.02 && passou == 0)
+            {
+                gR -= 60;
+                gX -= 1.8;
+                gZ += 7;
+                passou = 1;
+            }
+            else if(gZ > -0.5 && passou == 1)
+            {
+                gZ -= 0.0005;
+                gR -= 0.02;
+            }
+            
+            if(gZ <= -0.5 && passou == 1)
+            {
+                //gR = gX = gY = gZ = 0;
+                //gl.glTranslated(5, 0, 0);
+                //gl.glRotated(gR, 0, 1, 0);
+                reta4 = false;
+                reta1 = true;
+            }
+            
+            //TODO: resetar o caminho ou colocar algo para que ele refaça a volta
+        }
+        
         desenhaCarro(gl, glut, 0, 0, 1);
 
         gl.glTranslated(0, 0, 1);
