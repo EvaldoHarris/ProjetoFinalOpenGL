@@ -66,13 +66,19 @@ public class Autorama
     }
 
     public void display(GLAutoDrawable glAuto) {
-
+        
         GL2 gl = glAuto.getGL().getGL2();
 
         gl.glClear(GL.GL_COLOR_BUFFER_BIT
                 | GL.GL_DEPTH_BUFFER_BIT);
 
         gl.glLoadIdentity();
+        
+        gl.glEnable(GL2.GL_LIGHTING);
+        gl.glEnable(GL2.GL_LIGHT0);
+        gl.glEnable(GL2.GL_COLOR_MATERIAL);
+        //Acertar a posicao da luz
+        
         gl.glTranslated(0, 0, -4);
         gl.glRotated(85, 1, 0, 0); // Rotação Camera
         gl.glRotated(90, 0, 1, 0); // Rotação Camera
@@ -132,8 +138,8 @@ public class Autorama
             }
             else if(gZ >= 2.5 && gZ <= 3.9)
             {
-                gZ -= 0.0008;
-                gR -= 0.02;
+                gZ -= 0.008;
+                gR -= 0.2;
             }
             
             if(gR > -270 && gZ <= 2.5 && passou == 1)
@@ -162,8 +168,8 @@ public class Autorama
            }
            else if(gX >= 0.9 && gX <= 1.8 && passou == 1)
            {
-               gX += 0.0005;
-               gR -= 0.02;
+               gX += 0.005;
+               gR -= 0.2;
            }
            
            if(gR > -270 && gX >= 1.8 && passou == 1)
@@ -199,7 +205,8 @@ public class Autorama
             
             if(gZ <= -0.5 && passou == 1)
             {
-                //gR = gX = gY = gZ = 0;
+                gR = gX = gY = gZ = 0;
+                passou = 0;
                 //gl.glTranslated(5, 0, 0);
                 //gl.glRotated(gR, 0, 1, 0);
                 reta4 = false;
