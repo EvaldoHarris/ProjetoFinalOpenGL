@@ -199,8 +199,8 @@ public class Autorama
             }
             else if(gZ > -0.5 && passou == 1)
             {
-                gZ -= 0.0005;
-                gR -= 0.02;
+                gZ -= 0.005;
+                gR -= 0.2;
             }
             
             if(gZ <= -0.5 && passou == 1)
