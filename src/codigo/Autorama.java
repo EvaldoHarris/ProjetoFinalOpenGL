@@ -34,6 +34,7 @@ public class Autorama
     private double gR = 0;
     private boolean reta1=true, reta2=false, reta3=false, reta4=false;
     private int passou = 0;
+    private boolean alterna = false;
 
     public Autorama() {
         GLJPanel canvas = new GLJPanel();
@@ -60,23 +61,31 @@ public class Autorama
     public void init(GLAutoDrawable glAuto) {
         Animator a = new Animator(glAuto);
         a.start();
-        GL gl = glAuto.getGL();
+        GL2 gl = glAuto.getGL().getGL2();
         gl.glClearColor(0.4f, 0.4f, 0.4f, 0.4f);
         gl.glEnable(GL.GL_DEPTH_TEST);
+           int x = -23, y = 0, z = 8;
+                 int tipo = 1;
+        float posicaoLuz[] = {x, y, z, tipo};
+        gl.glEnable(GL2.GL_LIGHTING);
+        gl.glEnable(GL2.GL_LIGHT0);
+        gl.glEnable(GL2.GL_COLOR_MATERIAL);
+        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, posicaoLuz, 0);
     }
 
     public void display(GLAutoDrawable glAuto) {
         
         GL2 gl = glAuto.getGL().getGL2();
+     
+  
+     
 
         gl.glClear(GL.GL_COLOR_BUFFER_BIT
                 | GL.GL_DEPTH_BUFFER_BIT);
 
         gl.glLoadIdentity();
         
-        gl.glEnable(GL2.GL_LIGHTING);
-        gl.glEnable(GL2.GL_LIGHT0);
-        gl.glEnable(GL2.GL_COLOR_MATERIAL);
+     
         //Acertar a posicao da luz
         
         gl.glTranslated(0, 0, -4);
@@ -219,7 +228,7 @@ public class Autorama
         desenhaCarro(gl, glut, 0, 0, 1);
 
         gl.glTranslated(0, 0, 1);
-
+        
         desenhaCarro(gl, glut, 1, 0, 0);
     }
 
