@@ -76,9 +76,6 @@ public class Autorama
     public void display(GLAutoDrawable glAuto) {
         
         GL2 gl = glAuto.getGL().getGL2();
-     
-  
-     
 
         gl.glClear(GL.GL_COLOR_BUFFER_BIT
                 | GL.GL_DEPTH_BUFFER_BIT);
@@ -99,7 +96,8 @@ public class Autorama
         
         gl.glTranslated(-3 + gX, gY, gZ);
         gl.glRotated(gR, 0, 1, 0);
-
+        
+        //criar método mover carro, adicionar push e pop neles e fazer um diferente para cada carro
         if(reta1 == true)
         {
             if (gX < 8) {
