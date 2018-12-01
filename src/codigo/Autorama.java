@@ -448,7 +448,7 @@ public class Autorama
     public void percurso(GL2 gl, Carro c)
     {
         Random rand = new Random();
-        int randomValue = rand.nextInt(9 + 1) + 1;
+        int randomValue = rand.nextInt(15 + 1) + 1;
         gl.glTranslated(-3 + c.gX, c.gY, c.gZ);
         gl.glRotated(c.gR, 0, 1, 0);
         
@@ -530,7 +530,7 @@ public class Autorama
            else if(c.gX >= 0.9 && c.gX <= 1.8 && c.passou == 1)
            {
                c.gX += 0.0048;
-               c.gR -= 0.2;
+               c.gR -= 0.15;
            }
            
            if(c.gR > -270 && c.gX >= 1.8 && c.passou == 1)
